@@ -80,8 +80,12 @@ public class RevertVirtualCatalogPropertyOverrideProcessor
           RevertProperties(propertiesToRevert, null, productFamily);
           foreach (Variant variant2 in productFamily.Variants)
           {
-            RevertProperties(propertiesToRevert, variant2, null);
-          }
+              #region Fix 41384
+              var variantPropertiesToRevert = GetPropertiesToRevert(args, variant2.DefinitionName,
+              DefinitionPropertyType.VariantProperty);
+              RevertProperties(variantPropertiesToRevert, variant2, null);
+              #endregion
+            }
         }
         else
         {
